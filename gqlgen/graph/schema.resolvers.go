@@ -15,14 +15,14 @@ func (r *mutationResolver) CreateAd(ctx context.Context, input model.AdInput) (*
 	if err := r.Db.SaveAd(input); err != nil {
 		return nil, gqlerror.Errorf("error while creating Ad:", err)
 	}
-	return AdInputToAd(input), nil
+	return adInputToAd(input), nil
 }
 
 func (r *mutationResolver) UpdateAd(ctx context.Context, input model.AdInput) (*model.Ad, error) {
 	if err := r.Db.UpdateAd(input); err != nil {
 		return nil, gqlerror.Errorf("error while updating Ad:", err)
 	}
-	return AdInputToAd(input), nil
+	return adInputToAd(input), nil
 }
 
 func (r *mutationResolver) DeleteAd(ctx context.Context, ref string) (bool, error) {

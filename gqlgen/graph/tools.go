@@ -2,7 +2,7 @@ package graph
 
 import "github.com/tle-dieu/gql_test/gqlgen/graph/model"
 
-func AdInputToAd(input model.AdInput) *model.Ad {
+func adInputToAd(input model.AdInput) *model.Ad {
 	options := &model.Options{}
 	if input.Options != nil {
 		options.Bluetooth = input.Options.Bluetooth

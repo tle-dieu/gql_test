@@ -2,33 +2,28 @@
 
 package model
 
-type Link struct {
-	ID      string `json:"id"`
-	Title   string `json:"title"`
-	Address string `json:"address"`
-	User    *User  `json:"user"`
+type Ad struct {
+	Ref     string   `json:"ref"`
+	Brand   string   `json:"brand"`
+	Model   string   `json:"model"`
+	Price   int      `json:"price"`
+	Options *Options `json:"options"`
 }
 
-type Login struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+type AdInput struct {
+	Ref     string        `json:"ref"`
+	Brand   string        `json:"brand"`
+	Model   string        `json:"model"`
+	Price   int           `json:"price"`
+	Options *OptionsInput `json:"options"`
 }
 
-type NewLink struct {
-	Title   string `json:"title"`
-	Address string `json:"address"`
+type Options struct {
+	Bluetooth *bool `json:"bluetooth"`
+	Gps       *bool `json:"gps"`
 }
 
-type NewUser struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
-type RefreshTokenInput struct {
-	Token string `json:"token"`
-}
-
-type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+type OptionsInput struct {
+	Bluetooth *bool `json:"bluetooth"`
+	Gps       *bool `json:"gps"`
 }

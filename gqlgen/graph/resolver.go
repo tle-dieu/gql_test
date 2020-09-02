@@ -4,4 +4,8 @@ package graph
 //
 // It serves as dependency injection for your app, add any dependencies you require here.
 
-type Resolver struct{}
+import "github.com/tle-dieu/gql_test/gqlgen/pkg/db/mysql"
+
+type Resolver struct {
+	Db *mysql.ClientMySQL
+}

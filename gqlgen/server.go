@@ -14,9 +14,10 @@ import (
 const defaultPort = "8080"
 
 func main() {
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	mysqlClient := mysql.NewMySQLClient()
 	mysqlClient.Migrate()
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{Db: mysqlClient}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)

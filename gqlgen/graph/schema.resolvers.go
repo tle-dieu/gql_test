@@ -5,43 +5,39 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/tle-dieu/gql_test/gqlgen/graph/generated"
 	"github.com/tle-dieu/gql_test/gqlgen/graph/model"
+	"github.com/vektah/gqlparser/v2/gqlerror"
 )
 
-func (r *mutationResolver) CreateLink(ctx context.Context, input model.NewLink) (*model.Link, error) {
-	var link model.Link
-	var user model.User
-	link.Address = input.Address
-	link.Title = input.Title
-	user.Name = "test"
-	link.User = &user
-	return &link, nil
-}
-
-func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (string, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *mutationResolver) Login(ctx context.Context, input model.Login) (string, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *mutationResolver) RefreshToken(ctx context.Context, input model.RefreshTokenInput) (string, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *queryResolver) Links(ctx context.Context) ([]*model.Link, error) {
-	var links []*model.Link
-	dummyLink := model.Link{
-		Title:   "our dummy link",
-		Address: "https://address.org",
-		User:    &model.User{Name: "admin"},
+func (r *mutationResolver) CreateAd(ctx context.Context, input model.AdInput) (*model.Ad, error) {
+	if err := r.Db.SaveAd(input); err != nil {
+		return nil, gqlerror.Errorf("error while creating Ad:", err)
 	}
-	links = append(links, &dummyLink)
-	return links, nil
+	return AdInputToAd(input), nil
+}
+
+func (r *mutationResolver) UpdateAd(ctx context.Context, input model.AdInput) (*model.Ad, error) {
+	if err := r.Db.UpdateAd(input); err != nil {
+		return nil, gqlerror.Errorf("error while updating Ad:", err)
+	}
+	return AdInputToAd(input), nil
+}
+
+func (r *mutationResolver) DeleteAd(ctx context.Context, ref string) (bool, error) {
+	if err := r.Db.DeleteAd(ref); err != nil {
+		return false, gqlerror.Errorf("error while deleting Ad:", err)
+	}
+	return true, nil
+}
+
+func (r *queryResolver) Ads(ctx context.Context) ([]*model.Ad, error) {
+	ads, err := r.Db.GetAllAds()
+	if err != nil {
+		return nil, gqlerror.Errorf("error while getting Ads:", err)
+	}
+	return ads, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

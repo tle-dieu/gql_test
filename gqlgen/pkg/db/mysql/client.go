@@ -10,11 +10,11 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
-type clientMySQL struct {
+type ClientMySQL struct {
 	db *sql.DB
 }
 
-func NewMySQLClient() *clientMySQL {
+func NewMySQLClient() *ClientMySQL {
 	db, err := sql.Open("mysql", "root:password@tcp(localhost:3306)/local-db")
 	if err != nil {
 		log.Fatal(err)
@@ -23,21 +23,24 @@ func NewMySQLClient() *clientMySQL {
 	if err = db.Ping(); err != nil {
 		log.Fatal(err)
 	}
-	return &clientMySQL{
+	return &ClientMySQL{
 		db: db,
 	}
 }
 
-func (cli *clientMySQL) Migrate() {
+func (cli *ClientMySQL) Migrate() {
 	if err := cli.db.Ping(); err != nil {
 		log.Fatal(err)
 	}
 	driver, _ := mysql_migrate.WithInstance(cli.db, &mysql_migrate.Config{})
-	m, _ := migrate.NewWithDatabaseInstance(
-		"file://internal/pkg/db/migrations/mysql",
+	m, err := migrate.NewWithDatabaseInstance(
+		"file://pkg/db/migrations/mysql",
 		"mysql",
 		driver,
 	)
+	if err != nil {
+		log.Fatal(err)
+	}
 	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
 		log.Fatal(err)
 	}

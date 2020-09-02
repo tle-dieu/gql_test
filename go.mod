@@ -1,4 +1,4 @@
-module github.com/tle-dieu/gql_test/graphql-go
+module github.com/tle-dieu/gql_test
 
 go 1.15
 

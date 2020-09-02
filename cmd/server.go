@@ -36,7 +36,7 @@ func main() {
 	mysqlClient.Migrate()
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", &relay.Handler{
-		Schema: parseSchema("./graphql-go/schema.graphqls", &graph.AdResolver{Db: mysqlClient}),
+		Schema: parseSchema("./graph/schema.graphql", &graph.Resolver{Db: mysqlClient}),
 	})
 	port := "8080"
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)

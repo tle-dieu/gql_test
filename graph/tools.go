@@ -1,19 +1,25 @@
 package graph
 
-import "github.com/tle-dieu/gql_test/graph/model"
+import "github.com/tle-dieu/gql_test/graph/models"
 
-func adInputToAd(input model.AdInput) *model.Ad {
-	options := &model.Options{}
-	if input.Options != nil {
-		options.Bluetooth = input.Options.Bluetooth
-		options.Gps = input.Options.Gps
+func adInputToAd(input models.AdInput) *models.Ad {
+	options := &models.Options{
+		Bluetooth: new(bool),
+		Gps:       new(bool),
 	}
-	return &model.Ad{
+	if input.Options != nil {
+		if input.Options.Bluetooth != nil {
+			options.Bluetooth = input.Options.Bluetooth
+		}
+		if input.Options.Gps != nil {
+			options.Bluetooth = input.Options.Gps
+		}
+	}
+	return &models.Ad{
 		Ref:     input.Ref,
 		Brand:   input.Brand,
 		Model:   input.Model,
 		Price:   input.Price,
 		Options: options,
 	}
-
 }

@@ -1,0 +1,40 @@
+schema {
+	query: Query
+	mutation: Mutation
+}
+
+type Ad {
+    ref: ID!
+    brand: String!
+    model: String!
+    price: Int!
+    options: Options
+}
+
+input AdInput {
+    ref: ID!
+    brand: String!
+    model: String!
+    price: Int!
+    options: OptionsInput
+}
+
+type Options {
+    bluetooth: Boolean
+    gps: Boolean
+}
+
+input OptionsInput {
+    bluetooth: Boolean
+    gps: Boolean
+}
+
+type Query {
+    ads: [Ad!]!
+}
+
+type Mutation {
+    createAd(ad: AdInput!): Ad!
+    updateAd(ad: AdInput!): Ad!
+    deleteAd(ref: ID!): Boolean!
+}

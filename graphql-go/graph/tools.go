@@ -1,6 +1,6 @@
-package gqlgen
+package graph
 
-import "github.com/tle-dieu/gql_test/gqlgen/model"
+import "github.com/tle-dieu/gql_test/graphql-go/graph/model"
 
 func adInputToAd(input model.AdInput) *model.Ad {
 	options := &model.Options{}

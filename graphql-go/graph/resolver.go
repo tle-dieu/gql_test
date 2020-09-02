@@ -1,9 +1,9 @@
-package gqlgen
+package graph
 
 import (
 	"context"
 
-	"github.com/tle-dieu/gql_test/graphql-go/model"
+	"github.com/tle-dieu/gql_test/graphql-go/graph/model"
 	"github.com/tle-dieu/gql_test/pkg/db/mysql"
 	"github.com/vektah/gqlparser/v2/gqlerror"
 )

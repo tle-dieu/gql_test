@@ -6,21 +6,21 @@ import (
 	"net/http"
 
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/graph-gophers/graphql-go"
+	graphql_go "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
-	graphql_go "github.com/tle-dieu/gql_test/graphql-go"
-	"github.com/tle-dieu/gql_test/pkg/db/mysql"
+	"github.com/tle-dieu/gql_test/graphql-go/graph"
+	"github.com/tle-dieu/gql_test/graphql-go/pkg/db/mysql"
 )
 
 const defaultPort = "8080"
 
-func parseSchema(path string, resolver interface{}) *graphql.Schema {
+func parseSchema(path string, resolver interface{}) *graphql_go.Schema {
 	bstr, err := ioutil.ReadFile(path)
 	if err != nil {
 		log.Fatal(err)
 	}
 	schemaString := string(bstr)
-	parsedSchema, err := graphql.ParseSchema(
+	parsedSchema, err := graphql_go.ParseSchema(
 		schemaString,
 		resolver,
 	)
@@ -36,7 +36,7 @@ func main() {
 	mysqlClient.Migrate()
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", &relay.Handler{
-		Schema: parseSchema("./graphql-go/schema.graphqls", &graphql_go.AdResolver{Db: mysqlClient}),
+		Schema: parseSchema("./graphql-go/schema.graphqls", &graph.AdResolver{Db: mysqlClient}),
 	})
 	port := "8080"
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)

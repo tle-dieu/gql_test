@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/99designs/graphql/handler"
-	"github.com/99designs/graphql/playground"
+	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/tle-dieu/gql_test/graph"
 	"github.com/tle-dieu/gql_test/graph/generated"
 	"github.com/tle-dieu/gql_test/pkg/db/mysql"

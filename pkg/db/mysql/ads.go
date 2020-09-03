@@ -6,7 +6,7 @@ import (
 	"github.com/tle-dieu/gql_test/graph/model"
 )
 
-func (cli *ClientMySQL) SaveAd(ad model.AdInput) error {
+func (cli *ClientMySQL) SaveAd(ad model.Ad) error {
 	stmt, err := cli.db.Prepare("INSERT INTO Ads(ref,brand,model,price,bluetooth,gps) VALUES(?,?,?,?,?,?)")
 	// should not fatal if duplicate ref
 	if err != nil {
@@ -20,7 +20,7 @@ func (cli *ClientMySQL) SaveAd(ad model.AdInput) error {
 	return nil
 }
 
-func (cli *ClientMySQL) UpdateAd(ad model.AdInput) error {
+func (cli *ClientMySQL) UpdateAd(ad model.Ad) error {
 	stmt, err := cli.db.Prepare("UPDATE Ads SET brand = ?, model = ?, price = ?, bluetooth = ?, gps = ? WHERE ref = ?")
 	if err != nil {
 		return err
@@ -46,7 +46,7 @@ func (cli *ClientMySQL) DeleteAd(ref string) error {
 	return nil
 }
 
-func (cli *ClientMySQL) GetAllAds() ([]*model.Ad, error) {
+func (cli *ClientMySQL) GetAllAds() ([]model.Ad, error) {
 	stmt, err := cli.db.Prepare("SELECT ref,brand,model,price,bluetooth,gps FROM Ads")
 	if err != nil {
 		return nil, err
@@ -57,7 +57,7 @@ func (cli *ClientMySQL) GetAllAds() ([]*model.Ad, error) {
 		return nil, err
 	}
 	defer rows.Close()
-	var ads []*model.Ad
+	var ads []model.Ad
 	for rows.Next() {
 		var ad model.Ad
 		ad.Options = &model.Options{}
@@ -65,7 +65,7 @@ func (cli *ClientMySQL) GetAllAds() ([]*model.Ad, error) {
 		if err != nil {
 			return nil, err
 		}
-		ads = append(ads, &ad)
+		ads = append(ads, ad)
 	}
 	if err = rows.Err(); err != nil {
 		return nil, err

@@ -12,17 +12,19 @@ import (
 )
 
 func (r *mutationResolver) CreateAd(ctx context.Context, input model.AdInput) (*model.Ad, error) {
-	if err := r.Db.SaveAd(input); err != nil {
+	ad := adInputToAd(input)
+	if err := r.Db.SaveAd(*ad); err != nil {
 		return nil, gqlerror.Errorf("error while creating Ad: " + err.Error())
 	}
-	return adInputToAd(input), nil
+	return ad, nil
 }
 
 func (r *mutationResolver) UpdateAd(ctx context.Context, input model.AdInput) (*model.Ad, error) {
-	if err := r.Db.UpdateAd(input); err != nil {
+	ad := adInputToAd(input)
+	if err := r.Db.UpdateAd(*ad); err != nil {
 		return nil, gqlerror.Errorf("error while updating Ad: " + err.Error())
 	}
-	return adInputToAd(input), nil
+	return ad, nil
 }
 
 func (r *mutationResolver) DeleteAd(ctx context.Context, ref string) (bool, error) {
@@ -32,7 +34,7 @@ func (r *mutationResolver) DeleteAd(ctx context.Context, ref string) (bool, erro
 	return true, nil
 }
 
-func (r *queryResolver) Ads(ctx context.Context) ([]*model.Ad, error) {
+func (r *queryResolver) Ads(ctx context.Context) ([]model.Ad, error) {
 	ads, err := r.Db.GetAllAds()
 	if err != nil {
 		return nil, gqlerror.Errorf("error while getting Ads: " + err.Error())

@@ -73,7 +73,7 @@ type MutationResolver interface {
 	DeleteAd(ctx context.Context, ref string) (bool, error)
 }
 type QueryResolver interface {
-	Ads(ctx context.Context) ([]*model.Ad, error)
+	Ads(ctx context.Context) ([]model.Ad, error)
 }
 
 type executableSchema struct {
@@ -769,9 +769,9 @@ func (ec *executionContext) _Query_ads(ctx context.Context, field graphql.Collec
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Ad)
+	res := resTmp.([]model.Ad)
 	fc.Result = res
-	return ec.marshalNAd2ᚕᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAdᚄ(ctx, field.Selections, res)
+	return ec.marshalNAd2ᚕgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAdᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2390,7 +2390,7 @@ func (ec *executionContext) marshalNAd2githubᚗcomᚋtleᚑdieuᚋgql_testᚋgr
 	return ec._Ad(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNAd2ᚕᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAdᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Ad) graphql.Marshaler {
+func (ec *executionContext) marshalNAd2ᚕgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAdᚄ(ctx context.Context, sel ast.SelectionSet, v []model.Ad) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -2414,7 +2414,7 @@ func (ec *executionContext) marshalNAd2ᚕᚖgithubᚗcomᚋtleᚑdieuᚋgql_tes
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNAd2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAd(ctx, sel, v[i])
+			ret[i] = ec.marshalNAd2githubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAd(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)

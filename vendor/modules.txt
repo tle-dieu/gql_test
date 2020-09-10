@@ -24,6 +24,12 @@ github.com/golang-migrate/migrate/v4/internal/url
 github.com/golang-migrate/migrate/v4/source
 github.com/golang-migrate/migrate/v4/source/file
 github.com/golang-migrate/migrate/v4/source/httpfs
+# github.com/golang/protobuf v1.4.2
+## explicit
+github.com/golang/protobuf/proto
+# github.com/gorilla/mux v1.7.4
+## explicit
+github.com/gorilla/mux
 # github.com/gorilla/websocket v1.4.2
 github.com/gorilla/websocket
 # github.com/hashicorp/errwrap v1.0.0
@@ -35,6 +41,10 @@ github.com/hashicorp/golang-lru
 github.com/hashicorp/golang-lru/simplelru
 # github.com/mitchellh/mapstructure v0.0.0-20180203102830-a4e142e9c047
 github.com/mitchellh/mapstructure
+# github.com/tle-dieu/fizzbuzz-api v0.0.0-20200722101455-0d7d73fd04ae
+## explicit
+github.com/tle-dieu/fizzbuzz-api/internal/protobuf
+github.com/tle-dieu/fizzbuzz-api/pkg/fizzbuzz
 # github.com/vektah/gqlparser/v2 v2.0.1
 ## explicit
 github.com/vektah/gqlparser/v2
@@ -44,3 +54,31 @@ github.com/vektah/gqlparser/v2/lexer
 github.com/vektah/gqlparser/v2/parser
 github.com/vektah/gqlparser/v2/validator
 github.com/vektah/gqlparser/v2/validator/rules
+# google.golang.org/protobuf v1.25.0
+## explicit
+google.golang.org/protobuf/encoding/prototext
+google.golang.org/protobuf/encoding/protowire
+google.golang.org/protobuf/internal/descfmt
+google.golang.org/protobuf/internal/descopts
+google.golang.org/protobuf/internal/detrand
+google.golang.org/protobuf/internal/encoding/defval
+google.golang.org/protobuf/internal/encoding/messageset
+google.golang.org/protobuf/internal/encoding/tag
+google.golang.org/protobuf/internal/encoding/text
+google.golang.org/protobuf/internal/errors
+google.golang.org/protobuf/internal/fieldsort
+google.golang.org/protobuf/internal/filedesc
+google.golang.org/protobuf/internal/filetype
+google.golang.org/protobuf/internal/flags
+google.golang.org/protobuf/internal/genid
+google.golang.org/protobuf/internal/impl
+google.golang.org/protobuf/internal/mapsort
+google.golang.org/protobuf/internal/pragma
+google.golang.org/protobuf/internal/set
+google.golang.org/protobuf/internal/strs
+google.golang.org/protobuf/internal/version
+google.golang.org/protobuf/proto
+google.golang.org/protobuf/reflect/protoreflect
+google.golang.org/protobuf/reflect/protoregistry
+google.golang.org/protobuf/runtime/protoiface
+google.golang.org/protobuf/runtime/protoimpl

@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/tle-dieu/fizzbuzz-api/internal/handler"
-	"github.com/tle-dieu/fizzbuzz-api/internal/logger"
+	"github.com/tle-dieu/gql_test/internal/http/handler"
+	"github.com/tle-dieu/gql_test/pkg/http/logger"
 )
 
 func main() {

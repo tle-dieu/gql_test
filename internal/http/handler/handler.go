@@ -2,8 +2,6 @@ package handler
 
 import (
 	"net/http"
-
-	"github.com/tle-dieu/fizzbuzz-api/pkg/fizzbuzz"
 )
 
 //Fizzbuzz handle a fizzbuzz request (/fizzbuzz)
@@ -26,4 +24,8 @@ func Fizzbuzz(w http.ResponseWriter, req *http.Request) {
 	}
 	w.Header().Set("Content-type", contentType)
 	w.Write([]byte(fizzbuzz.FizzbuzzAlgo(d)))
+}
+
+func Ads(w http.ResponseWriter, req *http.Request) {
+	w
 }

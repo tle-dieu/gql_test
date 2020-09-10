@@ -18,7 +18,10 @@ func main() {
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
-	router.HandleFunc("/fizzbuzz", handler.Fizzbuzz).Methods(http.MethodPost)
+	router.HandleFunc("/getAds", handler.GetAds).Methods(http.MethodPost)
+	// router.HandleFunc("/createAd", handler.CreateAd).Methods(http.MethodPost)
+	// router.HandleFunc("/updateAd", handler.UpdateAd).Methods(http.MethodPost)
+	// router.HandleFunc("/deleteAd", handler.DeleteAd).Methods(http.MethodPost)
 	log.Println("Listening on :8080")
 	log.Fatal(serv.ListenAndServe())
 }

@@ -41,10 +41,6 @@ github.com/hashicorp/golang-lru
 github.com/hashicorp/golang-lru/simplelru
 # github.com/mitchellh/mapstructure v0.0.0-20180203102830-a4e142e9c047
 github.com/mitchellh/mapstructure
-# github.com/tle-dieu/fizzbuzz-api v0.0.0-20200722101455-0d7d73fd04ae
-## explicit
-github.com/tle-dieu/fizzbuzz-api/internal/protobuf
-github.com/tle-dieu/fizzbuzz-api/pkg/fizzbuzz
 # github.com/vektah/gqlparser/v2 v2.0.1
 ## explicit
 github.com/vektah/gqlparser/v2

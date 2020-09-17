@@ -6,13 +6,14 @@ import (
 	"github.com/tle-dieu/gql_test/graph/model"
 )
 
-func (cli *ClientMySQL) SaveAd(ad model.Ad) error {
+func (cli *Client) SaveAd(ad model.Ad) error {
 	stmt, err := cli.db.Prepare("INSERT INTO Ads(ref,brand,model,price,bluetooth,gps) VALUES(?,?,?,?,?,?)")
-	// should not fatal if duplicate ref
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 	_, err = stmt.Exec(ad.Ref, ad.Brand, ad.Model, ad.Price, ad.Options.Bluetooth, ad.Options.Gps)
+	// should not fatal if duplicate ref
 	if err != nil {
 		return err
 	}
@@ -20,11 +21,12 @@ func (cli *ClientMySQL) SaveAd(ad model.Ad) error {
 	return nil
 }
 
-func (cli *ClientMySQL) UpdateAd(ad model.Ad) error {
+func (cli *Client) UpdateAd(ad model.Ad) error {
 	stmt, err := cli.db.Prepare("UPDATE Ads SET brand = ?, model = ?, price = ?, bluetooth = ?, gps = ? WHERE ref = ?")
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 	_, err = stmt.Exec(ad.Brand, ad.Model, ad.Price, ad.Options.Bluetooth, ad.Options.Gps, ad.Ref)
 	if err != nil {
 		return err
@@ -33,11 +35,12 @@ func (cli *ClientMySQL) UpdateAd(ad model.Ad) error {
 	return nil
 }
 
-func (cli *ClientMySQL) DeleteAd(ref string) error {
+func (cli *Client) DeleteAd(ref string) error {
 	stmt, err := cli.db.Prepare("DELETE FROM Ads WHERE ref = ?")
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 	_, err = stmt.Exec(ref)
 	if err != nil {
 		return err
@@ -46,7 +49,7 @@ func (cli *ClientMySQL) DeleteAd(ref string) error {
 	return nil
 }
 
-func (cli *ClientMySQL) GetAllAds() ([]model.Ad, error) {
+func (cli *Client) GetAllAds() ([]model.Ad, error) {
 	stmt, err := cli.db.Prepare("SELECT ref,brand,model,price,bluetooth,gps FROM Ads")
 	if err != nil {
 		return nil, err

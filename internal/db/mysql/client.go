@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -10,38 +11,40 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
-type ClientMySQL struct {
+type Client struct {
 	db *sql.DB
 }
 
-func NewMySQLClient() *ClientMySQL {
-	db, err := sql.Open("mysql", "root:password@tcp(localhost:3306)/local-db")
+func NewClient(driverName string, host string, port int, user string, password string, dbName string) (*Client, error) {
+	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", user, password, host, port, dbName)
+
+	db, err := sql.Open(driverName, connectionString)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	if err = db.Ping(); err != nil {
-		log.Fatal(err)
+		db.Close()
+		return nil, err
 	}
-	return &ClientMySQL{
-		db: db,
-	}
+	return &Client{db: db}, nil
 }
 
-func (cli *ClientMySQL) Migrate() {
+func (cli *Client) Migrate() error {
 	if err := cli.db.Ping(); err != nil {
 		log.Fatal(err)
 	}
 	driver, _ := mysql_migrate.WithInstance(cli.db, &mysql_migrate.Config{})
 	m, err := migrate.NewWithDatabaseInstance(
-		"file://pkg/db/migrations/mysql",
+		"file://internal/db/migrations/mysql",
 		"mysql",
 		driver,
 	)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
-		log.Fatal(err)
+		return err
 	}
+	return nil
 }

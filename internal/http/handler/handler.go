@@ -2,6 +2,8 @@ package handler
 
 import (
 	"net/http"
+
+	"github.com/tle-dieu/gql_test/internal/db/mysql"
 )
 
 //Fizzbuzz handle a fizzbuzz request (/fizzbuzz)
@@ -26,5 +28,13 @@ import (
 // 	w.Write([]byte(fizzbuzz.FizzbuzzAlgo(d)))
 // }
 
-func GetAds(w http.ResponseWriter, req *http.Request) {
+func GetAds(db mysql.Client) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		ads, err := db.GetAllAds()
+		if err != nil {
+			// return nil, gqlerror.Errorf("error while getting Ads: " + err.Error())
+			panic(err)
+		}
+		// return ads, nil
+	}
 }

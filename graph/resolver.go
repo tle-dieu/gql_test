@@ -9,5 +9,5 @@ package graph
 import "github.com/tle-dieu/gql_test/internal/db/mysql"
 
 type Resolver struct {
-	Db *mysql.ClientMySQL
+	Db *mysql.Client
 }

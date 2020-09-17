@@ -1,21 +1,27 @@
 package mysql
 
 import (
-	"github.com/tle-dieu/gql_test/internal/db/mysql"
+	"fmt"
 	"net/http"
+
+	"github.com/gol4ng/httpware/v3"
+	"github.com/tle-dieu/gql_test/internal/db/mysql"
 )
 
-type responseWriterClient struct {
+type ResponseWriterClient struct {
 	http.ResponseWriter
-	Cli *mysql.ClientMySQL
+	Db *mysql.Client
 }
 
-func WrapMysqlHandler(cli *mysql.ClientMySQL, handler http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		responseWriter := &responseWriterClient{
-			ResponseWriter: w,
-			Cli:            cli,
-		}
-		handler.ServeHTTP(responseWriter, r)
-	})
+func WrapMysqlHandler(cli *mysql.Client) httpware.Middleware {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			fmt.Println("yes")
+			responseWriter := &ResponseWriterClient{
+				ResponseWriter: w,
+				Db:             cli,
+			}
+			next.ServeHTTP(responseWriter, r)
+		})
+	}
 }

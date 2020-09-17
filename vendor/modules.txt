@@ -15,6 +15,29 @@ github.com/agnivade/levenshtein
 # github.com/go-sql-driver/mysql v1.5.0
 ## explicit
 github.com/go-sql-driver/mysql
+# github.com/gol4ng/httpware/v3 v3.0.0
+## explicit
+github.com/gol4ng/httpware/v3
+github.com/gol4ng/httpware/v3/auth
+github.com/gol4ng/httpware/v3/correlation_id
+github.com/gol4ng/httpware/v3/interceptor
+github.com/gol4ng/httpware/v3/metrics
+github.com/gol4ng/httpware/v3/middleware
+github.com/gol4ng/httpware/v3/rate_limit
+github.com/gol4ng/httpware/v3/skip
+# github.com/gol4ng/logger v0.5.5
+## explicit
+github.com/gol4ng/logger
+github.com/gol4ng/logger/formatter
+github.com/gol4ng/logger/handler
+github.com/gol4ng/logger/middleware
+github.com/gol4ng/logger/socket
+github.com/gol4ng/logger/writer
+github.com/gol4ng/logger/writer/provider
+# github.com/gol4ng/logger-http v0.3.0
+## explicit
+github.com/gol4ng/logger-http
+github.com/gol4ng/logger-http/middleware
 # github.com/golang-migrate/migrate/v4 v4.12.2
 ## explicit
 github.com/golang-migrate/migrate/v4

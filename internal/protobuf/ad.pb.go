@@ -104,6 +104,53 @@ func (x *Ad) GetOptions() *Ad_Options {
 	return nil
 }
 
+type Ads struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Ads []*Ad `protobuf:"bytes,1,rep,name=ads,proto3" json:"ads,omitempty"`
+}
+
+func (x *Ads) Reset() {
+	*x = Ads{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_ad_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Ads) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Ads) ProtoMessage() {}
+
+func (x *Ads) ProtoReflect() protoreflect.Message {
+	mi := &file_ad_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Ads.ProtoReflect.Descriptor instead.
+func (*Ads) Descriptor() ([]byte, []int) {
+	return file_ad_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *Ads) GetAds() []*Ad {
+	if x != nil {
+		return x.Ads
+	}
+	return nil
+}
+
 type Ad_Options struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -116,7 +163,7 @@ type Ad_Options struct {
 func (x *Ad_Options) Reset() {
 	*x = Ad_Options{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_ad_proto_msgTypes[1]
+		mi := &file_ad_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -129,7 +176,7 @@ func (x *Ad_Options) String() string {
 func (*Ad_Options) ProtoMessage() {}
 
 func (x *Ad_Options) ProtoReflect() protoreflect.Message {
-	mi := &file_ad_proto_msgTypes[1]
+	mi := &file_ad_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -174,8 +221,10 @@ var file_ad_proto_rawDesc = []byte{
 	0x4f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x1c, 0x0a, 0x09, 0x62, 0x6c, 0x75, 0x65, 0x74,
 	0x6f, 0x6f, 0x74, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x09, 0x62, 0x6c, 0x75, 0x65,
 	0x74, 0x6f, 0x6f, 0x74, 0x68, 0x12, 0x10, 0x0a, 0x03, 0x67, 0x70, 0x73, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x08, 0x52, 0x03, 0x67, 0x70, 0x73, 0x42, 0x0c, 0x5a, 0x0a, 0x2e, 0x3b, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x62, 0x75, 0x66, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x28, 0x08, 0x52, 0x03, 0x67, 0x70, 0x73, 0x22, 0x1c, 0x0a, 0x03, 0x41, 0x64, 0x73, 0x12, 0x15,
+	0x0a, 0x03, 0x61, 0x64, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x03, 0x2e, 0x41, 0x64,
+	0x52, 0x03, 0x61, 0x64, 0x73, 0x42, 0x0c, 0x5a, 0x0a, 0x2e, 0x3b, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x62, 0x75, 0x66, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -190,18 +239,20 @@ func file_ad_proto_rawDescGZIP() []byte {
 	return file_ad_proto_rawDescData
 }
 
-var file_ad_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_ad_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_ad_proto_goTypes = []interface{}{
 	(*Ad)(nil),         // 0: Ad
-	(*Ad_Options)(nil), // 1: Ad.Options
+	(*Ads)(nil),        // 1: Ads
+	(*Ad_Options)(nil), // 2: Ad.Options
 }
 var file_ad_proto_depIdxs = []int32{
-	1, // 0: Ad.options:type_name -> Ad.Options
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	2, // 0: Ad.options:type_name -> Ad.Options
+	0, // 1: Ads.ads:type_name -> Ad
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_ad_proto_init() }
@@ -223,6 +274,18 @@ func file_ad_proto_init() {
 			}
 		}
 		file_ad_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Ads); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_ad_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Ad_Options); i {
 			case 0:
 				return &v.state
@@ -241,7 +304,7 @@ func file_ad_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_ad_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

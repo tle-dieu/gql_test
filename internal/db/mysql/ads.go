@@ -3,10 +3,10 @@ package mysql
 import (
 	"log"
 
-	"github.com/tle-dieu/gql_test/graph/model"
+	model "github.com/tle-dieu/gql_test/internal/protobuf"
 )
 
-func (cli *Client) SaveAd(ad model.Ad) error {
+func (cli *Client) SaveAd(ad *model.Ad) error {
 	stmt, err := cli.db.Prepare("INSERT INTO Ads(ref,brand,model,price,bluetooth,gps) VALUES(?,?,?,?,?,?)")
 	if err != nil {
 		return err
@@ -21,7 +21,7 @@ func (cli *Client) SaveAd(ad model.Ad) error {
 	return nil
 }
 
-func (cli *Client) UpdateAd(ad model.Ad) error {
+func (cli *Client) UpdateAd(ad *model.Ad) error {
 	stmt, err := cli.db.Prepare("UPDATE Ads SET brand = ?, model = ?, price = ?, bluetooth = ?, gps = ? WHERE ref = ?")
 	if err != nil {
 		return err
@@ -49,7 +49,7 @@ func (cli *Client) DeleteAd(ref string) error {
 	return nil
 }
 
-func (cli *Client) GetAllAds() ([]model.Ad, error) {
+func (cli *Client) GetAllAds() (*model.Ads, error) {
 	stmt, err := cli.db.Prepare("SELECT ref,brand,model,price,bluetooth,gps FROM Ads")
 	if err != nil {
 		return nil, err
@@ -60,15 +60,15 @@ func (cli *Client) GetAllAds() ([]model.Ad, error) {
 		return nil, err
 	}
 	defer rows.Close()
-	var ads []model.Ad
+	ads := &model.Ads{}
 	for rows.Next() {
 		var ad model.Ad
-		ad.Options = &model.Options{}
+		ad.Options = &model.Ad_Options{}
 		err := rows.Scan(&ad.Ref, &ad.Brand, &ad.Model, &ad.Price, &ad.Options.Bluetooth, &ad.Options.Gps)
 		if err != nil {
 			return nil, err
 		}
-		ads = append(ads, ad)
+		ads.Ads = append(ads.Ads, &ad)
 	}
 	if err = rows.Err(); err != nil {
 		return nil, err

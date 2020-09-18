@@ -35,7 +35,7 @@ func main() {
 		return
 	}
 
-	router.HandleFunc("/ads", handler.GetAds(*mysqlClient)).Methods(http.MethodPost)
+	router.HandleFunc("/ads", handler.GetAds(*mysqlClient)).Methods(http.MethodGet)
 
 	server := http.Server{
 		Addr:    ":8080",

@@ -15,7 +15,7 @@ type ClientMySQL struct {
 }
 
 func NewMySQLClient() *ClientMySQL {
-	db, err := sql.Open("mysql", "root:password@tcp(localhost:3306)/local-db")
+	db, err := sql.Open("mysql", "root:password@tcp(localhost:3307)/local-db")
 	if err != nil {
 		log.Fatal(err)
 	}

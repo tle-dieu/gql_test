@@ -13,7 +13,7 @@ test*
 *.csv
 
 # local mysql db files
-mysql-data
+_mysql-data
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out

@@ -6,7 +6,7 @@ import (
 	model "github.com/tle-dieu/gql_test/internal/protobuf"
 )
 
-func (cli *Client) SaveAd(ad *model.Ad) error {
+func (cli *Client) CreateAd(ad *model.Ad) error {
 	stmt, err := cli.db.Prepare("INSERT INTO Ads(ref,brand,model,price,bluetooth,gps) VALUES(?,?,?,?,?,?)")
 	if err != nil {
 		return err

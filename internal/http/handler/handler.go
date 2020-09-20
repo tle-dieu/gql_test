@@ -2,14 +2,14 @@ package handler
 
 import (
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
 
+	"github.com/gorilla/mux"
 	"github.com/tle-dieu/gql_test/internal/db/mysql"
-	model "github.com/tle-dieu/gql_test/internal/protobuf"
+	"github.com/tle-dieu/gql_test/internal/protobuf"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -35,46 +35,28 @@ import (
 // 	w.Write([]byte(fizzbuzz.FizzbuzzAlgo(d)))
 // }
 
-func fizzbuzzCheckResponseType(acceptEncoding string) (string, error) {
-	contentTypeResponse := [...]string{"application/model"}
-	arrAcceptEncoding := strings.Split(acceptEncoding, ",")
-
-	fmt.Println(acceptEncoding)
-	if len(arrAcceptEncoding) == 0 || strings.TrimSpace(arrAcceptEncoding[0]) == "" {
-		return contentTypeResponse[0], nil
-	}
-	for _, v := range arrAcceptEncoding {
-		for _, contentType := range contentTypeResponse {
-			if strings.TrimSpace(v) == contentType {
-				return contentType, nil
-			}
-		}
-	}
-	return "", fmt.Errorf("Bad Accept-encoding, can be %v", contentTypeResponse)
-}
-
-func fizzbuzzGetAdsRequest(req *http.Request) (*model.Ad, error) {
-	var err error
-
+func getProtobufRequest(req *http.Request, message proto.Message) error {
 	if req.Body == nil || req.Body == http.NoBody {
-		return nil, errors.New("Please send a request body")
+		return errors.New("Please send a request body")
 	}
-	if req.Header.Get("Content-Type") != "application/model" {
-		return nil, errors.New("Content-Type must be application/model")
+	if req.Header.Get("Content-Type") != "application/protobuf" {
+		return errors.New("Content-Type must be application/protobuf")
 	}
 	body, err := ioutil.ReadAll(req.Body)
 	if err != nil {
-		return nil, errors.New("Unable to read message from request : " + err.Error())
+		return errors.New("Unable to read message from request : " + err.Error())
 	}
-	adRequest := &model.Ad{}
-	if err = proto.Unmarshal(body, adRequest); err != nil {
-		return nil, err
+	if err := proto.Unmarshal(body, message); err != nil {
+		return err
 	}
-	return adRequest, nil
+	return nil
 }
 
 func GetAds(db mysql.Client) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		if !strings.Contains(r.Header.Get("Accept-Encoding"), "application/protobuf") {
+			panic("bad accept encoding")
+		}
 		ads, err := db.GetAllAds()
 		if err != nil {
 			panic(err) // @FIXME
@@ -85,7 +67,45 @@ func GetAds(db mysql.Client) http.HandlerFunc {
 		}
 		_, err = w.Write(response)
 		if err != nil {
-			log.Fatalf("Unable to write data into HTTP response : %v", err)
+			log.Fatalf("Unable to write data into HTTP response: %v", err)
+		}
+	}
+}
+
+func CreateAd(db mysql.Client) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		ad := &protobuf.Ad{}
+		err := getProtobufRequest(r, ad)
+		if err != nil {
+			panic(err)
+		}
+		err = db.CreateAd(ad)
+		if err != nil {
+			panic(err) // @FIXME
+		}
+	}
+}
+
+func UpdateAd(db mysql.Client) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		ad := &protobuf.Ad{}
+		err := getProtobufRequest(r, ad)
+		if err != nil {
+			panic(err)
+		}
+		err = db.UpdateAd(ad)
+		if err != nil {
+			panic(err) // @FIXME
+		}
+	}
+}
+
+func DeleteAd(db mysql.Client) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		ref := mux.Vars(r)["ad_ref"]
+		err := db.DeleteAd(ref)
+		if err != nil {
+			panic(err)
 		}
 	}
 }

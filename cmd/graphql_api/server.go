@@ -10,11 +10,11 @@ import (
 	"github.com/tle-dieu/gql_test/graph/generated"
 )
 
-const defaultPort = "8080"
+const defaultPort = "8081"
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{Db: mysqlClient}}))
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)

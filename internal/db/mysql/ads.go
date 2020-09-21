@@ -3,7 +3,7 @@ package mysql
 import (
 	"log"
 
-	model "github.com/tle-dieu/gql_test/internal/protobuf"
+	model "github.com/tle-dieu/gql_test/pkg/protobuf"
 )
 
 func (cli *Client) CreateAd(ad *model.Ad) error {

@@ -9,31 +9,9 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/tle-dieu/gql_test/internal/db/mysql"
-	"github.com/tle-dieu/gql_test/internal/protobuf"
+	"github.com/tle-dieu/gql_test/pkg/protobuf"
 	"google.golang.org/protobuf/proto"
 )
-
-//Fizzbuzz handle a fizzbuzz request (/fizzbuzz)
-// func Fizzbuzz(w http.ResponseWriter, req *http.Request) {
-// 	d, err := fizzbuzzGetDataRequest(req)
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusBadRequest)
-// 		return
-// 	}
-
-// 	if err := fizzbuzz.CheckData(d); err != nil {
-// 		http.Error(w, err.Error(), http.StatusBadRequest)
-// 		return
-// 	}
-
-// 	contentType, err := fizzbuzzCheckResponseType(req.Header.Get("Accept-encoding"))
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusNotAcceptable)
-// 		return
-// 	}
-// 	w.Header().Set("Content-type", contentType)
-// 	w.Write([]byte(fizzbuzz.FizzbuzzAlgo(d)))
-// }
 
 func getProtobufRequest(req *http.Request, message proto.Message) error {
 	if req.Body == nil || req.Body == http.NoBody {

@@ -41,7 +41,7 @@ func main() {
 	router.HandleFunc("/deleteAd/{ad_ref}", handler.DeleteAd(*mysqlClient)).Methods(http.MethodDelete)
 
 	server := http.Server{
-		Addr:    ":8081",
+		Addr:    ":8080",
 		Handler: stack.DecorateHandler(router),
 		BaseContext: func(listener net.Listener) context.Context {
 			return logger.InjectInContext(context.Background(), l)
@@ -52,6 +52,6 @@ func main() {
 	// router.HandleFunc("/createAd", handler.CreateAd).Methods(http.MethodPost)
 	// router.HandleFunc("/updateAd", handler.UpdateAd).Methods(http.MethodPost)
 	// router.HandleFunc("/deleteAd", handler.DeleteAd).Methods(http.MethodPost)
-	l.Info("Listening on :8081")
+	l.Info("Listening on :8080")
 	l.Error(server.ListenAndServe().Error())
 }

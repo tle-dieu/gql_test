@@ -21,9 +21,7 @@ func NewClient(apiURL string, httpClient *http.Client) *Client {
 			requester.JSON(true),
 			requester.URL(apiURL),
 			requester.WithDoer(httpClient),
-			requester.ExpectCode(http.StatusOK),
-			// should be this instead of StatusOK
-			// requester.ExpectCode(http.StatusAccepted),
+			requester.ExpectCode(http.StatusAccepted),
 		),
 	}
 }

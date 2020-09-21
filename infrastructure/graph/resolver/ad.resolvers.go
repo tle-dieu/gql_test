@@ -5,14 +5,20 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/tle-dieu/ad_graphql_api/infrastructure/graph/generated"
 	"github.com/tle-dieu/ad_graphql_api/infrastructure/graph/generated/model"
+	"github.com/tle-dieu/ad_graphql_api/infrastructure/graph/transformer"
 )
 
 func (r *mutationResolver) CreateAd(ctx context.Context, input model.AdInput) (*model.Ad, error) {
-	panic(fmt.Errorf("not implemented"))
+	ad := transformer.AdInputToAd(input)
+	createAdResponse, err := r.HttpClient.CreateAd(ad)
+	if err != nil {
+		return nil, err
+	}
+	ad.Ref = createAdResponse.Ref
+	return ad, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

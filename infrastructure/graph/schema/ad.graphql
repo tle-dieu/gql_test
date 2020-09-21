@@ -26,10 +26,4 @@ input OptionsInput {
 
 type Mutation {
     createAd(input: AdInput!): Ad!
-    updateAd(input: AdInput!): Ad!
-    deleteAd(ref: ID!): Boolean!
-}
-
-type Query {
-    ads: [Ad!]!
 }

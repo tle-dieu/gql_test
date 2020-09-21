@@ -7,30 +7,29 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/tle-dieu/ad_graphql_api/config"
 	"github.com/tle-dieu/ad_graphql_api/infrastructure/graph/generated"
 	"github.com/tle-dieu/ad_graphql_api/infrastructure/graph/resolver"
 	requester "github.com/tle-dieu/ad_graphql_api/infrastructure/http/client"
 )
 
-const defaultPort = "8081"
-const apiHost = "127.0.0.1"
-const apiPort = "8080"
-
-func NewHTTPClient() *requester.Client {
+func NewHTTPClient(host string, port int) *requester.Client {
 	httpClient := &http.Client{}
-	httpRequester := requester.NewClient(fmt.Sprintf("http://%s:%s", apiHost, apiPort), httpClient)
+	httpRequester := requester.NewClient(fmt.Sprintf("http://%s:%d", host, port), httpClient)
 	return httpRequester
 }
 
 func main() {
+	// load config
+	cfg := config.NewExtractAds()
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{
 		Resolvers: &resolver.Resolver{
-			HttpClient: NewHTTPClient(),
+			HTTPClient: NewHTTPClient(cfg.HTTPClientHost, cfg.HTTPClientPort),
 		}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
 
-	log.Printf("connect to http://localhost:%s/ for GraphQL playground", defaultPort)
-	log.Fatal(http.ListenAndServe(":"+defaultPort, nil))
+	log.Printf("connect to http://localhost:%d/ for GraphQL playground", cfg.GraphqlPort)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", cfg.GraphqlPort), nil))
 }

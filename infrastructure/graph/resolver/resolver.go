@@ -9,5 +9,5 @@ import requester "github.com/tle-dieu/ad_graphql_api/infrastructure/http/client"
 // It serves as dependency injection for your app, add any dependencies you require here.
 
 type Resolver struct {
-	HttpClient *requester.Client
+	HTTPClient *requester.Client
 }

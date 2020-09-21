@@ -13,7 +13,7 @@ import (
 
 func (r *mutationResolver) CreateAd(ctx context.Context, input model.AdInput) (*model.Ad, error) {
 	ad := transformer.AdInputToAd(input)
-	createAdResponse, err := r.HttpClient.CreateAd(ad)
+	createAdResponse, err := r.HTTPClient.CreateAd(ad)
 	if err != nil {
 		return nil, err
 	}

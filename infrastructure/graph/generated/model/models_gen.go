@@ -11,7 +11,6 @@ type Ad struct {
 }
 
 type AdInput struct {
-	Ref     string        `json:"ref"`
 	Brand   string        `json:"brand"`
 	Model   string        `json:"model"`
 	Price   int           `json:"price"`

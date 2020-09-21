@@ -257,7 +257,6 @@ type Ad {
 }
 
 input AdInput {
-    ref: ID!
     brand: String!
     model: String!
     price: Int!
@@ -1949,14 +1948,6 @@ func (ec *executionContext) unmarshalInputAdInput(ctx context.Context, obj inter
 
 	for k, v := range asMap {
 		switch k {
-		case "ref":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ref"))
-			it.Ref, err = ec.unmarshalNID2string(ctx, v)
-			if err != nil {
-				return it, err
-			}
 		case "brand":
 			var err error
 

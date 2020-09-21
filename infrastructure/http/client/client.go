@@ -11,8 +11,8 @@ type Client struct {
 	requester *requester.Requester
 }
 
-type createAdResponse struct {
-	ref string `json:"ref"`
+type CreateAdResponse struct {
+	Ref string `json:"ref"`
 }
 
 func NewClient(apiUrl string, httpClient *http.Client) *Client {
@@ -26,15 +26,16 @@ func NewClient(apiUrl string, httpClient *http.Client) *Client {
 	}
 }
 
-func (cli *Client) CreateAd(ad *model.Ad) (createAdReponse, error) {
+func (cli *Client) CreateAd(ad *model.Ad) (CreateAdResponse, error) {
 	requesterOptions := []requester.Option{
 		requester.Post("/createAd"),
 		requester.Body(ad),
 	}
-	var resp createAdReponse
-	_, _, err := cli.requester.Receive(
+	var resp CreateAdResponse
+	r, _, err := cli.requester.Receive(
 		&resp,
 		requesterOptions...,
 	)
+	r.Body.Close()
 	return resp, err
 }

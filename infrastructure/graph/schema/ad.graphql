@@ -8,7 +8,6 @@ type Ad {
 }
 
 input AdInput {
-    ref: ID!
     brand: String!
     model: String!
     price: Int!

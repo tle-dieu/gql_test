@@ -15,23 +15,7 @@ func (r *mutationResolver) CreateAd(ctx context.Context, input model.AdInput) (*
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) UpdateAd(ctx context.Context, input model.AdInput) (*model.Ad, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *mutationResolver) DeleteAd(ctx context.Context, ref string) (bool, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *queryResolver) Ads(ctx context.Context) ([]model.Ad, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
 // Mutation returns generated.MutationResolver implementation.
 func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
 
-// Query returns generated.QueryResolver implementation.
-func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
-
 type mutationResolver struct{ *Resolver }
-type queryResolver struct{ *Resolver }

@@ -8,7 +8,6 @@ import (
 	"errors"
 	"strconv"
 	"sync"
-	"sync/atomic"
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
@@ -36,7 +35,6 @@ type Config struct {
 
 type ResolverRoot interface {
 	Mutation() MutationResolver
-	Query() QueryResolver
 }
 
 type DirectiveRoot struct {
@@ -53,8 +51,6 @@ type ComplexityRoot struct {
 
 	Mutation struct {
 		CreateAd func(childComplexity int, input model.AdInput) int
-		DeleteAd func(childComplexity int, ref string) int
-		UpdateAd func(childComplexity int, input model.AdInput) int
 	}
 
 	Options struct {
@@ -63,17 +59,11 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Ads func(childComplexity int) int
 	}
 }
 
 type MutationResolver interface {
 	CreateAd(ctx context.Context, input model.AdInput) (*model.Ad, error)
-	UpdateAd(ctx context.Context, input model.AdInput) (*model.Ad, error)
-	DeleteAd(ctx context.Context, ref string) (bool, error)
-}
-type QueryResolver interface {
-	Ads(ctx context.Context) ([]model.Ad, error)
 }
 
 type executableSchema struct {
@@ -138,30 +128,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.CreateAd(childComplexity, args["input"].(model.AdInput)), true
 
-	case "Mutation.deleteAd":
-		if e.complexity.Mutation.DeleteAd == nil {
-			break
-		}
-
-		args, err := ec.field_Mutation_deleteAd_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
-		}
-
-		return e.complexity.Mutation.DeleteAd(childComplexity, args["ref"].(string)), true
-
-	case "Mutation.updateAd":
-		if e.complexity.Mutation.UpdateAd == nil {
-			break
-		}
-
-		args, err := ec.field_Mutation_updateAd_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
-		}
-
-		return e.complexity.Mutation.UpdateAd(childComplexity, args["input"].(model.AdInput)), true
-
 	case "Options.bluetooth":
 		if e.complexity.Options.Bluetooth == nil {
 			break
@@ -175,13 +141,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Options.Gps(childComplexity), true
-
-	case "Query.ads":
-		if e.complexity.Query.Ads == nil {
-			break
-		}
-
-		return e.complexity.Query.Ads(childComplexity), true
 
 	}
 	return 0, false
@@ -275,12 +234,6 @@ input OptionsInput {
 
 type Mutation {
     createAd(input: AdInput!): Ad!
-    updateAd(input: AdInput!): Ad!
-    deleteAd(ref: ID!): Boolean!
-}
-
-type Query {
-    ads: [Ad!]!
 }`, BuiltIn: false},
 }
 var parsedSchema = gqlparser.MustLoadSchema(sources...)
@@ -290,36 +243,6 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 // region    ***************************** args.gotpl *****************************
 
 func (ec *executionContext) field_Mutation_createAd_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 model.AdInput
-	if tmp, ok := rawArgs["input"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNAdInput2githubᚗcomᚋtleᚑdieuᚋad_graphql_apiᚋinfrastructureᚋgraphᚋgeneratedᚋmodelᚐAdInput(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["input"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_deleteAd_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ref"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ref"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ref"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_updateAd_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 model.AdInput
@@ -601,90 +524,6 @@ func (ec *executionContext) _Mutation_createAd(ctx context.Context, field graphq
 	return ec.marshalNAd2ᚖgithubᚗcomᚋtleᚑdieuᚋad_graphql_apiᚋinfrastructureᚋgraphᚋgeneratedᚋmodelᚐAd(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_updateAd(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Mutation",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updateAd_args(ctx, rawArgs)
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	fc.Args = args
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateAd(rctx, args["input"].(model.AdInput))
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(*model.Ad)
-	fc.Result = res
-	return ec.marshalNAd2ᚖgithubᚗcomᚋtleᚑdieuᚋad_graphql_apiᚋinfrastructureᚋgraphᚋgeneratedᚋmodelᚐAd(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Mutation_deleteAd(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Mutation",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_deleteAd_args(ctx, rawArgs)
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	fc.Args = args
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeleteAd(rctx, args["ref"].(string))
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(bool)
-	fc.Result = res
-	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _Options_bluetooth(ctx context.Context, field graphql.CollectedField, obj *model.Options) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -747,41 +586,6 @@ func (ec *executionContext) _Options_gps(ctx context.Context, field graphql.Coll
 	res := resTmp.(*bool)
 	fc.Result = res
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Query_ads(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Query",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Ads(rctx)
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]model.Ad)
-	fc.Result = res
-	return ec.marshalNAd2ᚕgithubᚗcomᚋtleᚑdieuᚋad_graphql_apiᚋinfrastructureᚋgraphᚋgeneratedᚋmodelᚐAdᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2086,16 +1890,6 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "updateAd":
-			out.Values[i] = ec._Mutation_updateAd(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "deleteAd":
-			out.Values[i] = ec._Mutation_deleteAd(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -2148,20 +1942,6 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Query")
-		case "ads":
-			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Query_ads(ctx, field)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
-			})
 		case "__type":
 			out.Values[i] = ec._Query___type(ctx, field)
 		case "__schema":
@@ -2424,43 +2204,6 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 func (ec *executionContext) marshalNAd2githubᚗcomᚋtleᚑdieuᚋad_graphql_apiᚋinfrastructureᚋgraphᚋgeneratedᚋmodelᚐAd(ctx context.Context, sel ast.SelectionSet, v model.Ad) graphql.Marshaler {
 	return ec._Ad(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNAd2ᚕgithubᚗcomᚋtleᚑdieuᚋad_graphql_apiᚋinfrastructureᚋgraphᚋgeneratedᚋmodelᚐAdᚄ(ctx context.Context, sel ast.SelectionSet, v []model.Ad) graphql.Marshaler {
-	ret := make(graphql.Array, len(v))
-	var wg sync.WaitGroup
-	isLen1 := len(v) == 1
-	if !isLen1 {
-		wg.Add(len(v))
-	}
-	for i := range v {
-		i := i
-		fc := &graphql.FieldContext{
-			Index:  &i,
-			Result: &v[i],
-		}
-		ctx := graphql.WithFieldContext(ctx, fc)
-		f := func(i int) {
-			defer func() {
-				if r := recover(); r != nil {
-					ec.Error(ctx, ec.Recover(ctx, r))
-					ret = nil
-				}
-			}()
-			if !isLen1 {
-				defer wg.Done()
-			}
-			ret[i] = ec.marshalNAd2githubᚗcomᚋtleᚑdieuᚋad_graphql_apiᚋinfrastructureᚋgraphᚋgeneratedᚋmodelᚐAd(ctx, sel, v[i])
-		}
-		if isLen1 {
-			f(i)
-		} else {
-			go f(i)
-		}
-
-	}
-	wg.Wait()
-	return ret
 }
 
 func (ec *executionContext) marshalNAd2ᚖgithubᚗcomᚋtleᚑdieuᚋad_graphql_apiᚋinfrastructureᚋgraphᚋgeneratedᚋmodelᚐAd(ctx context.Context, sel ast.SelectionSet, v *model.Ad) graphql.Marshaler {

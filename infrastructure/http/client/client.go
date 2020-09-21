@@ -15,11 +15,11 @@ type CreateAdResponse struct {
 	Ref string `json:"ref"`
 }
 
-func NewClient(apiUrl string, httpClient *http.Client) *Client {
+func NewClient(apiURL string, httpClient *http.Client) *Client {
 	return &Client{
 		requester: requester.MustNew(
 			requester.JSON(true),
-			requester.URL(apiUrl),
+			requester.URL(apiURL),
 			requester.WithDoer(httpClient),
 			requester.ExpectCode(http.StatusAccepted),
 		),

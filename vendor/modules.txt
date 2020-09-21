@@ -39,10 +39,12 @@ github.com/cpuguy83/go-md2man/v2/md2man
 github.com/gemalto/requester
 github.com/gemalto/requester/httpclient
 # github.com/google/go-querystring v1.0.0
+## explicit
 github.com/google/go-querystring/query
 # github.com/gorilla/websocket v1.4.2
 github.com/gorilla/websocket
 # github.com/hashicorp/golang-lru v0.5.1
+## explicit
 github.com/hashicorp/golang-lru
 github.com/hashicorp/golang-lru/simplelru
 # github.com/matryer/moq v0.0.0-20200106131100-75d0ddfc0007
@@ -51,14 +53,14 @@ github.com/matryer/moq/pkg/moq
 # github.com/mitchellh/mapstructure v0.0.0-20180203102830-a4e142e9c047
 github.com/mitchellh/mapstructure
 # github.com/pkg/errors v0.9.1
+## explicit
 github.com/pkg/errors
 # github.com/russross/blackfriday/v2 v2.0.1
 github.com/russross/blackfriday/v2
 # github.com/shurcooL/sanitized_anchor_name v1.0.0
 github.com/shurcooL/sanitized_anchor_name
-# github.com/tle-dieu/ad_http_api v0.0.0-20200921130720-e085e9ac2223
+# github.com/stretchr/testify v1.5.1
 ## explicit
-github.com/tle-dieu/ad_http_api/domain/model
 # github.com/urfave/cli/v2 v2.1.1
 github.com/urfave/cli/v2
 # github.com/vektah/dataloaden v0.2.1-0.20190515034641-a19b9a6e7c9e
@@ -77,6 +79,7 @@ github.com/vektah/gqlparser/v2/validator/rules
 golang.org/x/mod/module
 golang.org/x/mod/semver
 # golang.org/x/tools v0.0.0-20200725200936-102e7d357031
+## explicit
 golang.org/x/tools/go/ast/astutil
 golang.org/x/tools/go/gcexportdata
 golang.org/x/tools/go/internal/gcimporter
@@ -97,4 +100,5 @@ golang.org/x/tools/internal/typesinternal
 golang.org/x/xerrors
 golang.org/x/xerrors/internal
 # gopkg.in/yaml.v2 v2.2.7
+## explicit
 gopkg.in/yaml.v2

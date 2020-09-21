@@ -21,7 +21,7 @@ func NewHTTPClient(host string, port int) *requester.Client {
 
 func main() {
 	// load config
-	cfg := config.NewExtractAds()
+	cfg := config.New()
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{
 		Resolvers: &resolver.Resolver{
 			HTTPClient: NewHTTPClient(cfg.HTTPClientHost, cfg.HTTPClientPort),

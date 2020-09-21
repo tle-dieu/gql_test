@@ -16,8 +16,8 @@ type ExtractAds struct {
 	GraphqlPort    int    `config:"graphql_port"`
 }
 
-// NewExtractAds creates a new ExtractAds configuration from env vars
-func NewExtractAds() *ExtractAds {
+// New creates a new configuration from env vars
+func New() *ExtractAds {
 	// create default config
 	cfg := &ExtractAds{
 		HTTPClientPort: 8080,

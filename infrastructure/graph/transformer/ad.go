@@ -14,5 +14,4 @@ func AdInputToAd(input model.AdInput) *model.Ad {
 		Price:   input.Price,
 		Options: options,
 	}
-
 }

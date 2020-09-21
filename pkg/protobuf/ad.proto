@@ -18,3 +18,10 @@ message Ad {
 message Ads {
 	repeated Ad ads = 1;
 }
+
+message CreateAdRequest {
+    Ad ad = 1;
+}
+
+message CreateAdResponse {
+}

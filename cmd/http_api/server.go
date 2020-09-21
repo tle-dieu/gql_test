@@ -49,9 +49,6 @@ func main() {
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
-	// router.HandleFunc("/createAd", handler.CreateAd).Methods(http.MethodPost)
-	// router.HandleFunc("/updateAd", handler.UpdateAd).Methods(http.MethodPost)
-	// router.HandleFunc("/deleteAd", handler.DeleteAd).Methods(http.MethodPost)
 	l.Info("Listening on :8080")
 	l.Error(server.ListenAndServe().Error())
 }

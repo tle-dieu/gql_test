@@ -12,7 +12,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/tle-dieu/gql_test/graph/model"
+	"github.com/tle-dieu/gql_test/internal/graph/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -247,7 +247,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	{Name: "graph/schema.graphqls", Input: `
+	{Name: "internal/graph/schema.graphqls", Input: `
 type Ad {
     ref: ID!
     brand: String!
@@ -296,7 +296,7 @@ func (ec *executionContext) field_Mutation_createAd_args(ctx context.Context, ra
 	var arg0 model.AdInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("input"))
-		arg0, err = ec.unmarshalNAdInput2githubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAdInput(ctx, tmp)
+		arg0, err = ec.unmarshalNAdInput2githubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐAdInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -326,7 +326,7 @@ func (ec *executionContext) field_Mutation_updateAd_args(ctx context.Context, ra
 	var arg0 model.AdInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("input"))
-		arg0, err = ec.unmarshalNAdInput2githubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAdInput(ctx, tmp)
+		arg0, err = ec.unmarshalNAdInput2githubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐAdInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -552,7 +552,7 @@ func (ec *executionContext) _Ad_options(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.(*model.Options)
 	fc.Result = res
-	return ec.marshalOOptions2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐOptions(ctx, field.Selections, res)
+	return ec.marshalOOptions2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐOptions(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createAd(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -593,7 +593,7 @@ func (ec *executionContext) _Mutation_createAd(ctx context.Context, field graphq
 	}
 	res := resTmp.(*model.Ad)
 	fc.Result = res
-	return ec.marshalNAd2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAd(ctx, field.Selections, res)
+	return ec.marshalNAd2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐAd(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateAd(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -634,7 +634,7 @@ func (ec *executionContext) _Mutation_updateAd(ctx context.Context, field graphq
 	}
 	res := resTmp.(*model.Ad)
 	fc.Result = res
-	return ec.marshalNAd2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAd(ctx, field.Selections, res)
+	return ec.marshalNAd2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐAd(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteAd(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -771,7 +771,7 @@ func (ec *executionContext) _Query_ads(ctx context.Context, field graphql.Collec
 	}
 	res := resTmp.([]model.Ad)
 	fc.Result = res
-	return ec.marshalNAd2ᚕgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAdᚄ(ctx, field.Selections, res)
+	return ec.marshalNAd2ᚕgithubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐAdᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1940,7 +1940,7 @@ func (ec *executionContext) unmarshalInputAdInput(ctx context.Context, obj inter
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("options"))
-			it.Options, err = ec.unmarshalOOptionsInput2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐOptionsInput(ctx, v)
+			it.Options, err = ec.unmarshalOOptionsInput2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐOptionsInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -2386,11 +2386,11 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) marshalNAd2githubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAd(ctx context.Context, sel ast.SelectionSet, v model.Ad) graphql.Marshaler {
+func (ec *executionContext) marshalNAd2githubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐAd(ctx context.Context, sel ast.SelectionSet, v model.Ad) graphql.Marshaler {
 	return ec._Ad(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNAd2ᚕgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAdᚄ(ctx context.Context, sel ast.SelectionSet, v []model.Ad) graphql.Marshaler {
+func (ec *executionContext) marshalNAd2ᚕgithubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐAdᚄ(ctx context.Context, sel ast.SelectionSet, v []model.Ad) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -2414,7 +2414,7 @@ func (ec *executionContext) marshalNAd2ᚕgithubᚗcomᚋtleᚑdieuᚋgql_test�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNAd2githubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAd(ctx, sel, v[i])
+			ret[i] = ec.marshalNAd2githubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐAd(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -2427,7 +2427,7 @@ func (ec *executionContext) marshalNAd2ᚕgithubᚗcomᚋtleᚑdieuᚋgql_test�
 	return ret
 }
 
-func (ec *executionContext) marshalNAd2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAd(ctx context.Context, sel ast.SelectionSet, v *model.Ad) graphql.Marshaler {
+func (ec *executionContext) marshalNAd2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐAd(ctx context.Context, sel ast.SelectionSet, v *model.Ad) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -2437,7 +2437,7 @@ func (ec *executionContext) marshalNAd2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_test�
 	return ec._Ad(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNAdInput2githubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐAdInput(ctx context.Context, v interface{}) (model.AdInput, error) {
+func (ec *executionContext) unmarshalNAdInput2githubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐAdInput(ctx context.Context, v interface{}) (model.AdInput, error) {
 	res, err := ec.unmarshalInputAdInput(ctx, v)
 	return res, graphql.WrapErrorWithInputPath(ctx, err)
 }
@@ -2755,14 +2755,14 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return graphql.MarshalBoolean(*v)
 }
 
-func (ec *executionContext) marshalOOptions2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐOptions(ctx context.Context, sel ast.SelectionSet, v *model.Options) graphql.Marshaler {
+func (ec *executionContext) marshalOOptions2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐOptions(ctx context.Context, sel ast.SelectionSet, v *model.Options) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Options(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOOptionsInput2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋgraphᚋmodelᚐOptionsInput(ctx context.Context, v interface{}) (*model.OptionsInput, error) {
+func (ec *executionContext) unmarshalOOptionsInput2ᚖgithubᚗcomᚋtleᚑdieuᚋgql_testᚋinternalᚋgraphᚋmodelᚐOptionsInput(ctx context.Context, v interface{}) (*model.OptionsInput, error) {
 	if v == nil {
 		return nil, nil
 	}

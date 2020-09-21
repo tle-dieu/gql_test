@@ -1,6 +1,6 @@
 package graph
 
-import "github.com/tle-dieu/gql_test/graph/model"
+import "github.com/tle-dieu/gql_test/internal/graph/model"
 
 func adInputToAd(input model.AdInput) *model.Ad {
 	options := &model.Options{}

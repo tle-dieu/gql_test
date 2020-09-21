@@ -4,6 +4,9 @@ go 1.15
 
 require (
 	github.com/99designs/gqlgen v0.12.2
+	github.com/ansel1/merry v1.5.1 // indirect
+	github.com/felixge/httpsnoop v1.0.1 // indirect
+	github.com/gemalto/requester v1.0.2
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gol4ng/httpware/v3 v3.0.0
 	github.com/gol4ng/logger v0.5.5

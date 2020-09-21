@@ -6,8 +6,8 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/tle-dieu/gql_test/graph"
-	"github.com/tle-dieu/gql_test/graph/generated"
+	"github.com/tle-dieu/gql_test/internal/graph"
+	"github.com/tle-dieu/gql_test/internal/graph/generated"
 )
 
 const defaultPort = "8081"

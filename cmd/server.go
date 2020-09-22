@@ -27,6 +27,7 @@ func main() {
 			HTTPClient: NewHTTPClient(cfg.HTTPClientHost, cfg.HTTPClientPort),
 		}}))
 
+	// playground for tests
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
 

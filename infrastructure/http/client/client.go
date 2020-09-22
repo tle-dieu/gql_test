@@ -26,7 +26,7 @@ func NewClient(apiURL string, httpClient *http.Client) *Client {
 	}
 }
 
-func (cli *Client) CreateAd(ad *model.Ad) (CreateAdResponse, error) {
+func (cli *Client) CreateAd(ad model.AdInput) (CreateAdResponse, error) {
 	requesterOptions := []requester.Option{
 		requester.Post("/createAd"),
 		requester.Body(ad),

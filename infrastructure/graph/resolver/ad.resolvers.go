@@ -9,16 +9,15 @@ import (
 	"github.com/tle-dieu/ad_graphql_api/infrastructure/graph/generated"
 	"github.com/tle-dieu/ad_graphql_api/infrastructure/graph/generated/model"
 	"github.com/tle-dieu/ad_graphql_api/infrastructure/graph/transformer"
+	"github.com/vektah/gqlparser/v2/gqlerror"
 )
 
 func (r *mutationResolver) CreateAd(ctx context.Context, input model.AdInput) (*model.Ad, error) {
-	ad := transformer.AdInputToAd(input)
-	createAdResponse, err := r.HTTPClient.CreateAd(ad)
+	createAdResponse, err := r.HTTPClient.CreateAd(input)
 	if err != nil {
-		return nil, err
+		return nil, gqlerror.Errorf("error while creating Ad: " + err.Error())
 	}
-	ad.Ref = createAdResponse.Ref
-	return ad, nil
+	return transformer.AdInputToAd(input, createAdResponse.Ref), nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

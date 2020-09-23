@@ -9,7 +9,5 @@ require (
 	github.com/felixge/httpsnoop v1.0.1 // indirect
 	github.com/gemalto/requester v1.0.2
 	github.com/heetch/confita v0.9.2
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/vektah/gqlparser/v2 v2.1.0
-	golang.org/x/tools v0.0.0-20200725200936-102e7d357031 // indirect
 )

@@ -1,6 +1,9 @@
 # Where are all the schema files located? globs are supported eg  src/**/*.graphqls
 schema:
-  - infrastructure/graph/schema/ad.graphql
+  - infrastructure/graph/schema/input.graphql
+  - infrastructure/graph/schema/mutation.graphql
+  - infrastructure/graph/schema/type.graphql
+  - infrastructure/graph/schema/query.graphql
 
 # Where should the generated server code go?
 exec:

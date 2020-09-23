@@ -1,0 +1,12 @@
+type Ad {
+    ref: ID!
+    brand: String!
+    model: String!
+    price: Int!
+    options: Options
+}
+
+type Options {
+    bluetooth: Boolean
+    gps: Boolean
+}

@@ -1,0 +1,12 @@
+input AdInput {
+    brand: String!
+    model: String!
+    price: Int!
+    options: OptionsInput
+}
+
+
+input OptionsInput {
+    bluetooth: Boolean
+    gps: Boolean
+}

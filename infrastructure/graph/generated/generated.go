@@ -206,8 +206,22 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	{Name: "infrastructure/graph/schema/ad.graphql", Input: `
-type Ad {
+	{Name: "infrastructure/graph/schema/input.graphql", Input: `input AdInput {
+    brand: String!
+    model: String!
+    price: Int!
+    options: OptionsInput
+}
+
+
+input OptionsInput {
+    bluetooth: Boolean
+    gps: Boolean
+}`, BuiltIn: false},
+	{Name: "infrastructure/graph/schema/mutation.graphql", Input: `type Mutation {
+    createAd(input: AdInput!): Ad!
+}`, BuiltIn: false},
+	{Name: "infrastructure/graph/schema/type.graphql", Input: `type Ad {
     ref: ID!
     brand: String!
     model: String!
@@ -215,26 +229,11 @@ type Ad {
     options: Options
 }
 
-input AdInput {
-    brand: String!
-    model: String!
-    price: Int!
-    options: OptionsInput
-}
-
 type Options {
     bluetooth: Boolean
     gps: Boolean
-}
-
-input OptionsInput {
-    bluetooth: Boolean
-    gps: Boolean
-}
-
-type Mutation {
-    createAd(input: AdInput!): Ad!
 }`, BuiltIn: false},
+	{Name: "infrastructure/graph/schema/query.graphql", Input: ``, BuiltIn: false},
 }
 var parsedSchema = gqlparser.MustLoadSchema(sources...)
 

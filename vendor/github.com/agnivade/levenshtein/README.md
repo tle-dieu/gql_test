@@ -1,10 +1,14 @@
-levenshtein [![Build Status](https://travis-ci.org/agnivade/levenshtein.svg?branch=master)](https://travis-ci.org/agnivade/levenshtein) [![Go Report Card](https://goreportcard.com/badge/github.com/agnivade/levenshtein)](https://goreportcard.com/report/github.com/agnivade/levenshtein) [![GoDoc](https://godoc.org/github.com/agnivade/levenshtein?status.svg)](https://godoc.org/github.com/agnivade/levenshtein)
+levenshtein [![Build Status](https://travis-ci.org/agnivade/levenshtein.svg?branch=master)](https://travis-ci.org/agnivade/levenshtein) [![Go Report Card](https://goreportcard.com/badge/github.com/agnivade/levenshtein)](https://goreportcard.com/report/github.com/agnivade/levenshtein) [![PkgGoDev](https://pkg.go.dev/badge/github.com/agnivade/levenshtein)](https://pkg.go.dev/github.com/agnivade/levenshtein)
 ===========
 
 [Go](http://golang.org) package to calculate the [Levenshtein Distance](http://en.wikipedia.org/wiki/Levenshtein_distance)
 
 The library is fully capable of working with non-ascii strings. But the strings are not normalized. That is left as a user-dependant use case. Please normalize the strings before passing it to the library if you have such a requirement.
 - https://blog.golang.org/normalization
+
+#### Limitation
+
+As a performance optimization, the library can handle strings only up to 65536 characters (runes). If you need to handle strings larger than that, please pin to version 1.0.3.
 
 Install
 -------
@@ -38,10 +42,10 @@ Benchmarks
 
 ```
 name              time/op
-Simple/ASCII-4     365ns ± 1%
-Simple/French-4    680ns ± 2%
-Simple/Nordic-4   1.33µs ± 2%
-Simple/Tibetan-4  1.15µs ± 2%
+Simple/ASCII-4     330ns ± 2%
+Simple/French-4    617ns ± 2%
+Simple/Nordic-4   1.16µs ± 4%
+Simple/Tibetan-4  1.05µs ± 1%
 
 name              alloc/op
 Simple/ASCII-4     96.0B ± 0%

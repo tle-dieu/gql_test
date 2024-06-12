@@ -9,5 +9,5 @@ require (
 	github.com/felixge/httpsnoop v1.0.1 // indirect
 	github.com/gemalto/requester v1.0.2
 	github.com/heetch/confita v0.9.2
-	github.com/vektah/gqlparser/v2 v2.1.0
+	github.com/vektah/gqlparser/v2 v2.5.14
 )

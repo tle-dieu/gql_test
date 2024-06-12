@@ -25,7 +25,7 @@ github.com/99designs/gqlgen/plugin/federation
 github.com/99designs/gqlgen/plugin/modelgen
 github.com/99designs/gqlgen/plugin/resolvergen
 github.com/99designs/gqlgen/plugin/servergen
-# github.com/agnivade/levenshtein v1.0.3
+# github.com/agnivade/levenshtein v1.1.1
 github.com/agnivade/levenshtein
 # github.com/ansel1/merry v1.5.1
 ## explicit
@@ -74,7 +74,7 @@ github.com/urfave/cli/v2
 # github.com/vektah/dataloaden v0.2.1-0.20190515034641-a19b9a6e7c9e
 github.com/vektah/dataloaden
 github.com/vektah/dataloaden/pkg/generator
-# github.com/vektah/gqlparser/v2 v2.1.0
+# github.com/vektah/gqlparser/v2 v2.5.14
 ## explicit
 github.com/vektah/gqlparser/v2
 github.com/vektah/gqlparser/v2/ast
@@ -98,5 +98,5 @@ golang.org/x/tools/internal/semver
 # golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898
 golang.org/x/xerrors
 golang.org/x/xerrors/internal
-# gopkg.in/yaml.v2 v2.2.8
+# gopkg.in/yaml.v2 v2.4.0
 gopkg.in/yaml.v2
